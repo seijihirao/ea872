@@ -1,8 +1,8 @@
 #ifndef CONTROLLER_H
 #define CONTROLLER_H
 
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
+// #include <SDL2/SDL.h>
+// #include <SDL2/SDL_image.h>
 #include <memory>
 #include "model.h"
 

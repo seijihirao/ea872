@@ -9,13 +9,13 @@ class Coord {
         int y;
 
     public:
-        Map(int x, int y);
+        Coord(int x, int y);
         
         int getX();
         int getY();
 
-        int setX();
-        int setY();
+        void setX(int x);
+        void setY(int y);
 };
 
 #endif

@@ -5,11 +5,10 @@ const int SCREEN_HEIGHT = 600;
 
 using namespace std;
 
-View::View(shared_ptr<Model> bg, shared_ptr<Model> fg) : bg(bg), fg(fg) {
-
-// Criando uma janela
+View::View(shared_ptr<Map> map) : map(map) {
+    // Criando uma janela
     window = nullptr;
-    window = SDL_CreateWindow("Demonstracao do SDL2",
+    window = SDL_CreateWindow("EA872",
     SDL_WINDOWPOS_UNDEFINED,
     SDL_WINDOWPOS_UNDEFINED,
     SCREEN_WIDTH,
@@ -20,7 +19,7 @@ View::View(shared_ptr<Model> bg, shared_ptr<Model> fg) : bg(bg), fg(fg) {
         SDL_Quit();
     }
 
-            // Inicializando o renderizador
+    // Inicializando o renderizador
     renderer = SDL_CreateRenderer(
     window, -1,
     SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
@@ -30,8 +29,7 @@ View::View(shared_ptr<Model> bg, shared_ptr<Model> fg) : bg(bg), fg(fg) {
         SDL_Quit();
     }
 
-    bg->setTexture(this->render(bg));
-    fg->setTexture(this->render(fg));
+    map->setTexture(this->render(map));
 }
 
 View::~View() {
@@ -40,20 +38,34 @@ View::~View() {
      SDL_DestroyRenderer(renderer);
      SDL_DestroyWindow(window);
      SDL_Quit();
- }
+}
+
+void View::addChar(shared_ptr<Char> character) {
+    character->setTexture(this->render(map));
+}
 
 SDL_Texture*View:: render(shared_ptr<Model> model) {
 	SDL_Texture *texture = IMG_LoadTexture(renderer, model->getFile());
         SDL_QueryTexture(texture, nullptr, nullptr, model->getW(), model->getH());
         return texture;
- }
+}
+
+View::listenMovement(shared_ptr<Movement> movement) {
+    SDL_PumpEvents(); // atualiza estado do teclado
+    if (state[SDL_SCANCODE_LEFT]) movement->moveLeft();
+    if (state[SDL_SCANCODE_RIGHT]) movement->moveRight();
+    if (state[SDL_SCANCODE_UP]) movement->moveUp();
+    if (state[SDL_SCANCODE_DOWN]) movement->moveDown();
+    
+    SDL_RenderCopy(renderer, character->getTexture(), nullptr, character->getTarget());
+}
+
 
 void View::draw() {
-        // Desenhar a cena
-        SDL_RenderClear(renderer);
-        SDL_RenderCopy(renderer, bg->getTexture(), nullptr, nullptr);
-        SDL_RenderCopy(renderer, fg->getTexture(), nullptr, fg->getTarget());
-        SDL_RenderPresent(renderer);
-        // Delay para diminuir o framerate
+    // Desenhar a cena
+    SDL_RenderClear(renderer);
+    SDL_RenderCopy(renderer, this.map->getTexture(), nullptr, nullptr);
+    SDL_RenderPresent(renderer);
+    // Delay para diminuir o framerate
 	SDL_Delay(10);
  }

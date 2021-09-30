@@ -11,17 +11,14 @@ using namespace std;
 
 class Char : public Texture {
     private:
-        string char_url;
-        Coord position;
+        SDL_Rect* target;
+        SDL_Texture* texture;
 
     public:
-        Char(string char_url,Coord position);
-
-        Coord getPosition();
-        void moveUp();
-        void moveDown();
-        void moveLeft();
-        void moveRight();
+        SDL_Rect* getTarget();
+        void setTarget(SDL_Rect* target);
+        SDL_Texture* getTexture();
+        void setTexture(SDL_Texture* texture);
 };
 
 #endif

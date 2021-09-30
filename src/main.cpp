@@ -1,10 +1,17 @@
-#include "model.h"
-#include "view.h"
-#include "controller.h"
+#include <SDL2/SDL.h>
+#include <SDL2/SDL_image.h>
+#include "../include/models/char.h"
+#include "../include/models/coord.h"
+#include "../include/models/map.h"
+#include "../include/models/texture.h"
+#include "../include/view.h"
+#include "../include/controllers/movement.h"
+
 
 using namespace std;
 
 int main() {
+
     // Inicializando o subsistema de video do SDL
     if ( SDL_Init (SDL_INIT_VIDEO) < 0 ) {
         std::cout << SDL_GetError();
@@ -12,13 +19,13 @@ int main() {
     }
 
     // MVC
-    shared_ptr<Map> map (new Model("../assets/park.jpeg", 0, 0));
+    Coord position = Coord(1,1);
+    shared_ptr<Map> map (new Map("../assets/bg.jpeg", 0, 0));
     shared_ptr<View> view (new View(map));
-    
-    shared_ptr<Char> character (new Model("../assets/capi.png", 0, 0));
-    map->addChar(character);
+    shared_ptr<Char> character (new Char("../assets/player.png", position));
+    view->addChar(character);
  
-    shared_ptr<Movement> movement (new Movement(this.map, character));
+    shared_ptr<Movement> movement (new Movement(map, character));
 
     // Error handling
 
@@ -28,7 +35,7 @@ int main() {
 
     // Main loop
     while(run) {
-        view->listenMovement(character);
+        view->listenMovement(movement);
 
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {

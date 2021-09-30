@@ -1,11 +1,11 @@
-#include "view.h"
+#include "../include/view.h"
 
 const int SCREEN_WIDTH = 800;
 const int SCREEN_HEIGHT = 600;
 
 using namespace std;
 
-View::View(shared_ptr<Map> map) : map(map) {
+View::View(shared_ptr<Map> map) : map(map){
     // Criando uma janela
     window = nullptr;
     window = SDL_CreateWindow("EA872",
@@ -33,8 +33,7 @@ View::View(shared_ptr<Map> map) : map(map) {
 }
 
 View::~View() {
-     SDL_DestroyTexture(bg->getTexture());
-     SDL_DestroyTexture(fg->getTexture());
+     SDL_DestroyTexture(map->getTexture());
      SDL_DestroyRenderer(renderer);
      SDL_DestroyWindow(window);
      SDL_Quit();
@@ -44,28 +43,28 @@ void View::addChar(shared_ptr<Char> character) {
     character->setTexture(this->render(map));
 }
 
-SDL_Texture*View:: render(shared_ptr<Model> model) {
-	SDL_Texture *texture = IMG_LoadTexture(renderer, model->getFile());
-        SDL_QueryTexture(texture, nullptr, nullptr, model->getW(), model->getH());
+SDL_Texture*View:: render(shared_ptr<Map> map) {
+	int a,b;
+	a = map->getWidth();
+	b = map->getHeight();
+
+
+	SDL_Texture *texture = IMG_LoadTexture(renderer, map->getFile());
+        SDL_QueryTexture(texture, nullptr, nullptr, &a, &b);
         return texture;
 }
 
-View::listenMovement(shared_ptr<Movement> movement) {
-    SDL_PumpEvents(); // atualiza estado do teclado
-    if (state[SDL_SCANCODE_LEFT]) movement->moveLeft();
-    if (state[SDL_SCANCODE_RIGHT]) movement->moveRight();
-    if (state[SDL_SCANCODE_UP]) movement->moveUp();
-    if (state[SDL_SCANCODE_DOWN]) movement->moveDown();
-    
-    SDL_RenderCopy(renderer, character->getTexture(), nullptr, character->getTarget());
+void View::listenMovement(shared_ptr<Movement> movement) {
+    movement->move();
+    SDL_RenderCopy(renderer, movement->getChar()->getTexture(), nullptr, movement->getChar()->getTarget());
 }
 
 
 void View::draw() {
     // Desenhar a cena
     SDL_RenderClear(renderer);
-    SDL_RenderCopy(renderer, this.map->getTexture(), nullptr, nullptr);
+    SDL_RenderCopy(renderer, this->map->getTexture(), nullptr, nullptr);
     SDL_RenderPresent(renderer);
     // Delay para diminuir o framerate
-	SDL_Delay(10);
+    SDL_Delay(10);
  }

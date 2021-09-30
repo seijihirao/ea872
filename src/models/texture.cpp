@@ -2,18 +2,19 @@
 
 using namespace std;
 
-SDL_Rect Map::getTarget() {
-    return this.target;
+SDL_Rect* Texture::getTarget() {
+    return &target;
 }
 
-void Map::setTarget(SDL_Rect target) {
-    this.target = target;
+void Texture::setTarget(SDL_Rect target) {
+    this->target = target;
 }
 
-SDL_Texture* Map::getTexture() {
-    return this.texture;
+SDL_Texture* Texture::getTexture() {
+    return this->texture;
 }
 
-void Map::setTexture(SDL_Texture* texture) {
-    this.texture = texture;
+void Texture::setTexture(SDL_Texture* texture) {
+    this->texture = texture;
 }
+

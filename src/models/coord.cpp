@@ -8,17 +8,17 @@ Coord::Coord(int x, int y) :
 }
 
 int Coord::getX() {
-    return this.x;
+    return this->x;
 }
 
 int Coord::getY() {
-    return this.y;
+    return this->y;
 }
 
 void Coord::setX(int x) {
-    this.x = x;
+    this->x = x;
 }
 
 void Coord::setY(int y) {
-    this.y = y;
+    this->y = y;
 }

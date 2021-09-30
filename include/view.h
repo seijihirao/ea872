@@ -3,9 +3,10 @@
 
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
-#include <memory>
 #include <iostream>
+#include <memory>
 #include "models/map.h"
+#include "models/char.h"
 #include "controllers/movement.h"
 
 using namespace std;
@@ -20,9 +21,9 @@ class View {
         ~View();
         
         void addChar(shared_ptr<Char> character);
-        SDL_Texture* render(shared_ptr<Model> model);
+        SDL_Texture* render(shared_ptr<Map> map);
 
-        listenMovement(shared_ptr<Movement> movement);
+        void listenMovement(shared_ptr<Movement> movement);
 
         void draw();
 };

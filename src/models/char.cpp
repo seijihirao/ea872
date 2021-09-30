@@ -7,23 +7,23 @@ Char::Char(string char_url, Coord position) :
     position(position) {
 }
 
-int Char::getPosition() {
-    return this.position;
+Coord Char::getPosition() {
+    return this->position;
 }
 
 void Char::moveUp() {
-    this.position.setY(this.position.getY() - 1);
+    this->position.setY(this->position.getY() - 1);
 }
 
 void Char::moveDown() {
-    this.position.setY(this.position.getY() + 1);
+    this->position.setY(this->position.getY() + 1);
 }
 
 void Char::moveLeft() {
-    this.position.setX(this.position.getX() - 1);
+    this->position.setX(this->position.getX() - 1);
 }
 
 void Char::moveRight() {
-    this.position.setX(this.position.getX() + 1);
+    this->position.setX(this->position.getX() + 1);
 }
 

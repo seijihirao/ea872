@@ -6,7 +6,7 @@ SDL_Rect* Texture::getTarget() {
     return &target;
 }
 
-void Texture::setTarget(SDL_Rect target) {
+void Texture::setTarget(SDL_Rect* target) {
     this->target = target;
 }
 

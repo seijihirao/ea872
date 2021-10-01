@@ -18,7 +18,6 @@ class Movement {
     public:
         Movement(shared_ptr<Map> map, shared_ptr<Char> character);
         
-        shared_ptr<Char> getChar();
         void move();
         void walkUp();
         void walkDown();

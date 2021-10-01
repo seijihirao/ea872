@@ -14,16 +14,15 @@ using namespace std;
 class View {
     private:
         shared_ptr<Map> map;
+        shared_ptr<Char> character;
         SDL_Window* window;
         SDL_Renderer* renderer;
     public:
-        View(shared_ptr<Map> map);
+        View(shared_ptr<Map> map, shared_ptr<Char> character);
         ~View();
         
-        void addChar(shared_ptr<Char> character);
         SDL_Texture* render(shared_ptr<Map> map);
-
-        void listenMovement(shared_ptr<Movement> movement);
+        SDL_Texture* render(shared_ptr<Char> character);
 
         void draw();
 };

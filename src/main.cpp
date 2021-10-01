@@ -19,12 +19,10 @@ int main() {
     }
 
     // MVC
-    Coord position = Coord(1,1);
-    shared_ptr<Map> map (new Map("../assets/bg.jpeg", 0, 0));
-    shared_ptr<View> view (new View(map));
+    Coord position = Coord(0,0);
+    shared_ptr<Map> map (new Map("../assets/bg.jpg", 0, 0));
     shared_ptr<Char> character (new Char("../assets/player.png", position));
-    view->addChar(character);
- 
+    shared_ptr<View> view (new View(map,character));
     shared_ptr<Movement> movement (new Movement(map, character));
 
     // Error handling
@@ -35,7 +33,7 @@ int main() {
 
     // Main loop
     while(run) {
-        view->listenMovement(movement);
+        movement->move();
 
         while (SDL_PollEvent(&event)) {
             if (event.type == SDL_QUIT) {

@@ -6,6 +6,8 @@ Map::Map(string bg_url, int width, int height) :
     bg_url(bg_url), 
     width(width), 
     height(height) {
+    this->target.x = 0;
+    this->target.y = 0;
     this->_populate(this->NUM_BLOCKS);
 }
 
@@ -16,6 +18,19 @@ void Map::_populate(int num_blocks) {
         }
     }
 }
+
+Coord* Map::getRealPosition(Coord coord) {
+    int real_x = width/COLS * coord.getX();
+    int real_y = height/ROWS * coord.getY();
+    return new Coord(real_x, real_y);
+}
+
+Component Map::getComponent(Coord* coord) {
+    int x = coord->getX();
+    int y = coord->getY();
+    return this->map_matrix[x][y];
+}
+
 
 const char* Map::getFile(){
     return bg_url.c_str();
@@ -35,17 +50,5 @@ int Map::getMaxX(){
 
 int Map::getMaxY(){
     return this->ROWS;
-}
-
-Coord* Map::getRealPosition(Coord coord) {
-    int real_x = width/COLS * coord.getX();
-    int real_y = height/ROWS * coord.getY();
-    return new Coord(real_x, real_y);
-}
-
-Component Map::getComponent(Coord* coord) {
-    int x = coord->getX();
-    int y = coord->getY();
-    return this->map_matrix[x][y];
 }
 

@@ -7,10 +7,6 @@ Movement::Movement(shared_ptr<Map> map, shared_ptr<Char> character) : map(map), 
 	state = SDL_GetKeyboardState(nullptr);
 }
 
-shared_ptr<Char> Movement::getChar(){
-    return this->character;
-}
-
 void Movement::move(){
     SDL_PumpEvents(); // atualiza estado do teclado
     if (state[SDL_SCANCODE_LEFT]) walkLeft();

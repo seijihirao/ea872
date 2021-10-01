@@ -16,6 +16,8 @@ class Char : public Texture {
 
     public:
         Char(string char_url,Coord position);
+        
+        const char* getFile();
 
         Coord getPosition();
         void moveUp();

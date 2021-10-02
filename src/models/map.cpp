@@ -3,9 +3,7 @@
 using namespace std;
 
 Map::Map(string bg_url, int width, int height) : 
-    bg_url(bg_url), 
-    width(width), 
-    height(height) {
+    Texture(bg_url, width, height) { 
     this->target.x = 0;
     this->target.y = 0;
     this->_populate(this->NUM_BLOCKS);
@@ -29,19 +27,6 @@ Component Map::getComponent(Coord* coord) {
     int x = coord->getX();
     int y = coord->getY();
     return this->map_matrix[x][y];
-}
-
-
-const char* Map::getFile(){
-    return bg_url.c_str();
-}
-
-int Map::getWidth() {
-    return this->width;
-}
-
-int Map::getHeight() {
-    return this->height;
 }
 
 int Map::getMaxX(){

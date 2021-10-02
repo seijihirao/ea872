@@ -21,8 +21,7 @@ class View {
         View(shared_ptr<Map> map, shared_ptr<Char> character);
         ~View();
         
-        SDL_Texture* render(shared_ptr<Map> map);
-        SDL_Texture* render(shared_ptr<Char> character);
+        SDL_Texture* render(shared_ptr<Texture> texture);
 
         void draw();
 };

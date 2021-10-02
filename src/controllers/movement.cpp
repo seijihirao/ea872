@@ -1,5 +1,6 @@
 #include "../../include/controllers/movement.h"
 #include "../../include/models/map.h"
+#include <iostream>
 
 using namespace std;
 

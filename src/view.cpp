@@ -41,15 +41,9 @@ View::~View() {
      SDL_Quit();
 }
 
-SDL_Texture*View:: render(shared_ptr<Map> map) {
-	SDL_Texture *texture = IMG_LoadTexture(renderer, map->getFile());
-        SDL_QueryTexture(texture, nullptr, nullptr, map->getW(), map->getH());
-        return texture;
-}
-
-SDL_Texture*View:: render(shared_ptr<Char> character) {
-	SDL_Texture *texture = IMG_LoadTexture(renderer, character->getFile());
-        SDL_QueryTexture(texture, nullptr, nullptr, character->getW(), character->getH());
+SDL_Texture*View:: render(shared_ptr<Texture> texture_ext) {
+	SDL_Texture *texture = IMG_LoadTexture(renderer, texture_ext->getFile());
+        SDL_QueryTexture(texture, nullptr, nullptr, texture_ext->getWidth(), texture_ext->getHeight());
         return texture;
 }
 

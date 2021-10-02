@@ -2,6 +2,14 @@
 
 using namespace std;
 
+Texture::Texture(string url, int width, int height) : 
+    url(url), 
+    width(width), 
+    height(height) {
+    this->target.w = width;
+    this->target.h = height;
+}
+
 SDL_Rect* Texture::getTarget() {
     return &target;
 }
@@ -18,10 +26,14 @@ void Texture::setTexture(SDL_Texture* texture) {
     this->texture = texture;
 }
 
-int* Texture:: getW(){
-    return &target.w;
+const char* Texture::getFile(){
+    return this->url.c_str();
 }
 
-int* Texture:: getH(){
-    return &target.h;
+int* Texture:: getWidth(){
+    return &this->width;
+}
+
+int* Texture:: getHeight(){
+    return &this->width;
 }

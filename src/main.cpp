@@ -20,9 +20,9 @@ int main() {
 
     // MVC
     Coord position = Coord(0,0);
-    shared_ptr<Map> map (new Map("../assets/bg.jpg", 0, 0));
-    shared_ptr<Char> character (new Char("../assets/player.png", position));
-    shared_ptr<View> view (new View(map,character));
+    shared_ptr<Map> map (new Map("../assets/bg.jpg", 640, 480));
+    shared_ptr<Char> character (new Char("../assets/player.png", position, 60, 60));
+    shared_ptr<View> view (new View(map, character));
     shared_ptr<Movement> movement (new Movement(map, character));
 
     // Error handling

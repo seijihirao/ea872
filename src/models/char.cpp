@@ -2,15 +2,11 @@
 
 using namespace std;
 
-Char::Char(string char_url, Coord position) : 
-    char_url(char_url), 
+Char::Char(string char_url, Coord position, int width, int height) : 
+    Texture(char_url, width, height), 
     position(position) {
     this->target.x = 0;
     this->target.y = 0;
-}
-
-const char* Char::getFile(){
-    return char_url.c_str();
 }
 
 Coord Char::getPosition() {

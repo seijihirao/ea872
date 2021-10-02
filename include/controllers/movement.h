@@ -11,14 +11,13 @@ using namespace std;
 
 class Movement {
     private:
-    	const Uint8* state;
         const shared_ptr<Char> character;
         const shared_ptr<Map> map;
 
     public:
         Movement(shared_ptr<Map> map, shared_ptr<Char> character);
         
-        void move();
+        void move(SDL_Event event);
         void walkUp();
         void walkDown();
         void walkLeft();

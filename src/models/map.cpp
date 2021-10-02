@@ -10,6 +10,11 @@ Map::Map(string bg_url, int width, int height) :
 }
 
 void Map::_populate(int num_blocks) {
+    for (int i = 0; i < this->COLS; i += 1) {
+        for(int j = 0; j < this->ROWS; j += 1) {
+            this->map_matrix[i][j] = Nothing;
+        }
+    }
     for (int i = 1; i < this->COLS; i += 2) {
         for(int j = 1; j < this->ROWS; j += 2) {
             this->map_matrix[i][j] = Wall;

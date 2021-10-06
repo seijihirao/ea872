@@ -8,7 +8,6 @@
 #include "../include/view.h"
 #include "../include/controllers/movement.h"
 
-
 using namespace std;
 
 int main() {
@@ -46,6 +45,7 @@ int main() {
 	movement->move(event);
 
         view->draw();
+        
     }
 
     return 0;

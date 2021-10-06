@@ -8,6 +8,8 @@ blocos destrutíveis, outros personagens, ou a si mesmo. Have Fun!
 
 ## Rodando
 
+Na pasta raíz do projeto.
+
 ```
 $ mkdir bin
 $ cd bin
@@ -15,6 +17,18 @@ $ cmake ..
 $ make
 $ ./EA872
 ```
+
+## Gerando documentação
+
+Na pasta raíz do projeto.
+
+```
+$ doxygen
+$ cd docs
+```
+
+Então só abrir o `index.html`
+
 ## Plano de Atividades
 
 O plano está no arquivo [docs/planodeatividades.md](https://github.com/seijihirao/ea872/blob/main/docs/planodeatividades.md)

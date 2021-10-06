@@ -9,10 +9,16 @@ using namespace std;
 
 class Texture {
     protected:
+        /** SDL target */
         SDL_Rect target;
+
+        /** SDL texture pointer */
         SDL_Texture* texture;
 	
+        /** image file url */
 	    string url;
+
+        /** target size */
         int width, height;
 
     public:

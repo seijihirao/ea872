@@ -10,22 +10,23 @@ Movement::Movement(shared_ptr<Map> map, shared_ptr<Char> character) : map(map), 
 void Movement::move(SDL_Event event){
     switch( event.type ){
         case SDL_KEYDOWN:
+            // Key was pressed time to check which key
             switch( event.key.keysym.sym ){
-	        case SDLK_LEFT:
-		    this->walkLeft();
+	            case SDLK_LEFT:
+		            this->walkLeft();
                     break;
-	        case SDLK_RIGHT:
-		    this->walkRight();
-		    break;
-	        case SDLK_UP:
-		    this->walkUp();
-		    break;
-	        case SDLK_DOWN:
-		   this->walkDown();
-		   break;
-	        default:
-		   break;
-                }
+	            case SDLK_RIGHT:
+		            this->walkRight();
+		            break;
+	            case SDLK_UP:
+		            this->walkUp();
+		            break;
+	            case SDLK_DOWN:
+		            this->walkDown();
+		            break;
+	            default:
+		            break;
+            }
             break;
         case SDL_KEYUP:
             break;

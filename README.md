@@ -17,4 +17,4 @@ $ ./EA872
 ```
 ## Plano de Atividades
 
-O plano está no arquivo [docs/planodeatividades.md](https://github.com/seijihirao/ea872/blob/main/planodeatividades.md)
+O plano está no arquivo [docs/planodeatividades.md](https://github.com/seijihirao/ea872/blob/main/docs/planodeatividades.md)

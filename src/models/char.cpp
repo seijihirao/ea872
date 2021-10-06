@@ -15,21 +15,21 @@ Coord Char::getPosition() {
 
 void Char::moveUp() {
     this->position.setY(this->position.getY() - 1);
-    this->target.y += -20;
+    this->target.y += -40;
 }
 
 void Char::moveDown() {
     this->position.setY(this->position.getY() + 1);
-    this->target.y += 20;
+    this->target.y += 40;
 }
 
 void Char::moveLeft() {
     this->position.setX(this->position.getX() - 1);
-    this->target.x += -20;
+    this->target.x += -40;
 }
 
 void Char::moveRight() {
     this->position.setX(this->position.getX() + 1);
-    this->target.x += 20;
+    this->target.x += 40;
 }
 

@@ -26,6 +26,8 @@ add_library(view src/view.cpp)
 target_link_libraries(EA872 view)
 add_library(texture src/models/texture.cpp)
 target_link_libraries(EA872 texture)
+add_library(brick src/models/brick.cpp)
+target_link_libraries(EA872 brick)
 
 # Garantir que usaremos C++11 (ou superior, se preciso)
 set(CMAKE_CXX_STANDARD 11)

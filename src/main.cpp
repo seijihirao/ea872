@@ -4,6 +4,7 @@
 #include "../include/models/coord.h"
 #include "../include/models/map.h"
 #include "../include/models/texture.h"
+#include "../include/models/brick.h"
 #include "../include/view.h"
 #include "../include/controllers/movement.h"
 
@@ -20,10 +21,12 @@ int main() {
 
     // MVC
     Coord position = Coord(0,0);
-    shared_ptr<Map> map (new Map("../assets/bg.jpg", 640, 480));
-    shared_ptr<Char> character (new Char("../assets/player.png", position, 60, 60));
+    shared_ptr<Map> map (new Map("../assets/bg.jpg", 680, 440));
+    shared_ptr<Char> character (new Char("../assets/player.png", position, 40, 40));
     shared_ptr<View> view (new View(map, character));
     shared_ptr<Movement> movement (new Movement(map, character));
+    
+    view->construct("../assets/brick.png");
 
     // Error handling
 

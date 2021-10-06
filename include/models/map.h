@@ -17,10 +17,10 @@ enum Component {
 
 class Map : public Texture{
     private:
-        int COLS=16, ROWS=10;
+        int COLS=17, ROWS=11;
         int NUM_BLOCKS = 20;
 
-        Component map_matrix[16][10];
+        Component map_matrix[17][11];
         int matrix_width, matrix_height;
 
         void _populate(int num_blocks);

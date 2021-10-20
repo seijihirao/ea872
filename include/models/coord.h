@@ -1,7 +1,10 @@
 #ifndef COORD_H
 #define COORD_H
 
+#include "../ext/json.hpp"
+
 using namespace std;
+using nlohmann::json;
 
 class Coord {
     private:
@@ -12,6 +15,13 @@ class Coord {
         int y;
 
     public:
+	NLOHMANN_DEFINE_TYPE_INTRUSIVE(Coord, x, y);
+
+        /**
+         * Coordinate object, basically a pair of integers
+         */
+        Coord();
+
         /**
          * Coordinate object, basically a pair of integers
          *

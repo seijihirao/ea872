@@ -7,6 +7,7 @@
 #include "../include/models/brick.h"
 #include "../include/view.h"
 #include "../include/controllers/movement.h"
+#include "../include/controllers/save.h"
 
 using namespace std;
 
@@ -24,6 +25,8 @@ int main() {
     shared_ptr<Char> character (new Char("../assets/player.png", position, 40, 40));
     shared_ptr<View> view (new View(map, character));
     shared_ptr<Movement> movement (new Movement(map, character));
+    shared_ptr<Save> save (new Save(map, character));
+    save->load();
     
     view->construct("../assets/brick.png");
 
@@ -43,6 +46,7 @@ int main() {
         }
         
 	movement->move(event);
+	save->save();
 
         view->draw();
         

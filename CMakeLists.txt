@@ -22,6 +22,8 @@ add_library(char src/models/char.cpp)
 target_link_libraries(EA872 char)
 add_library(movement src/controllers/movement.cpp)
 target_link_libraries(EA872 movement)
+add_library(save src/controllers/save.cpp)
+target_link_libraries(EA872 save)
 add_library(view src/view.cpp)
 target_link_libraries(EA872 view)
 add_library(texture src/models/texture.cpp)
@@ -30,7 +32,7 @@ add_library(brick src/models/brick.cpp)
 target_link_libraries(EA872 brick)
 
 # Garantir que usaremos C++11 (ou superior, se preciso)
-set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
 # Bibliotecas linkadas externamente

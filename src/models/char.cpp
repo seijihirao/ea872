@@ -13,6 +13,10 @@ Coord Char::getPosition() {
     return this->position;
 }
 
+void Char::setPosition(Coord position) {
+    this->position = position;
+}
+
 void Char::moveUp() {
     this->position.setY(this->position.getY() - 1);
     this->target.y += -40;

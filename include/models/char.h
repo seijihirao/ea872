@@ -5,6 +5,7 @@
 #include <SDL2/SDL_image.h>
 #include "texture.h"
 #include "coord.h"
+#include "../ext/json.hpp"
 
 using namespace std;
 
@@ -14,6 +15,7 @@ class Char : public Texture {
         Coord position;
 
     public:
+	NLOHMANN_DEFINE_TYPE_INTRUSIVE(Char, position);
         /**
          * Create a new char sprite on position 0, 0
          *
@@ -27,6 +29,11 @@ class Char : public Texture {
          * Gets current position on matrix
          */
         Coord getPosition();
+
+        /**
+         * Sets current position on matrix
+         */
+        void setPosition(Coord position);
 
         /**
          * Moves charater upward

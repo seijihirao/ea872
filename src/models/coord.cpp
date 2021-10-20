@@ -2,6 +2,11 @@
 
 using namespace std;
 
+Coord::Coord() {
+    this->x = 0;
+    this->y = 0;
+}
+
 Coord::Coord(int x, int y) : 
     x(x), 
     y(y) {

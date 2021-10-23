@@ -2,26 +2,42 @@
 
 using namespace std;
 
-Map::Map(string bg_url, int width, int height) : 
-    Texture(bg_url, width, height) { 
+Map::Map(string bg_url, int width, int height) :
+    Texture(bg_url, width, height) {
     this->target.x = 0;
     this->target.y = 0;
-    this->_populate(this->NUM_BLOCKS);
 }
 
-void Map::_populate(int num_blocks) {
+void Map::_populate(string brick_url, string block_url) {
+    int i,j,size;
+    size = NUM_BLOCKS;
+
     // Fill with nothing
-    for (int i = 0; i < this->COLS; i += 1) {
-        for(int j = 0; j < this->ROWS; j += 1) {
+    for (i = 0; i < this->COLS; i += 1) {
+        for(j = 0; j < this->ROWS; j += 1) {
             this->map_matrix[i][j] = Nothing;
         }
     }
 
     // Fill Walls
-    for (int i = 1; i < this->COLS; i += 2) {
-        for(int j = 1; j < this->ROWS; j += 2) {
+    for (i = 1; i < this->COLS; i += 2) {
+        for(j = 1; j < this->ROWS; j += 2) {
             this->map_matrix[i][j] = Wall;
+            this->bricks.push_back(shared_ptr<Brick>(new Brick(brick_url,40*i,40*j)));
         }
+    }
+
+    // Fill blocks
+    while(size > 0){
+      i = rand() % (COLS-1);
+      j = rand() % (ROWS-1);
+
+      if( ((j == 0 || j == 10) && (i <= 1 || i >= 15)) || ((j == 1 || j == 9) && (i == 0 || i == 16)) ){}
+      else if(this->map_matrix[i][j] == Nothing){
+          this->map_matrix[i][j] = Bloc;
+          this->blocks.push_back(shared_ptr<Block>(new Block(block_url,40*i,40*j)));
+          size --;
+      }
     }
 }
 
@@ -45,3 +61,10 @@ int Map::getMaxY(){
     return this->ROWS;
 }
 
+vector<shared_ptr<Brick>> Map:: getBricks(){
+  return this->bricks;
+}
+
+vector<shared_ptr<Block>> Map:: getBlocks(){
+  return this->blocks;
+}

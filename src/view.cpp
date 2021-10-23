@@ -31,14 +31,28 @@ View::View(shared_ptr<Map> map, shared_ptr<Char> character) : map(map), characte
 
     this->map->setTexture(this->render(map));
     this->character->setTexture(this->render(character));
+
+    for(int i = 0; i < this->map->getBricks().size(); i++)
+      this->map->getBricks()[i]->setTexture(this->render(this->map->getBricks()[i]));
+
+    for(int i = 0; i < this->map->getBlocks().size(); i++)
+      this->map->getBlocks()[i]->setTexture(this->render(this->map->getBlocks()[i]));
 }
 
 View::~View() {
+    int i;
 
-    for(int i = 0; i < this->bricks.size(); i++)
-    	SDL_DestroyTexture(this->bricks[i]->getTexture());
+    for(i = 0; i < this->map->getBricks().size(); i++)
+    	SDL_DestroyTexture(this->map->getBricks()[i]->getTexture());
+
+    for(i = 0; i < this->map->getBlocks().size(); i++)
+      SDL_DestroyTexture(this->map->getBlocks()[i]->getTexture());
+
+    if(character->getBomb() != NULL)
+      SDL_DestroyTexture(character->getBomb()->getTexture());
 
      SDL_DestroyTexture(character->getTexture());
+
      SDL_DestroyTexture(map->getTexture());
      SDL_DestroyRenderer(renderer);
      SDL_DestroyWindow(window);
@@ -51,29 +65,28 @@ SDL_Texture*View:: render(shared_ptr<Texture> texture_ext) {
         return texture;
 }
 
-void View::construct(string url){
-	
-	for (int i = 1; i < this->map->getMaxX(); i += 2) {
-        	for(int j = 1; j < this->map->getMaxY(); j += 2) {
-            	bricks.push_back(shared_ptr<Brick>(new Brick(url,40*i,40*j)));
-        }
-    }
-    
-	for(int i = 0; i < bricks.size(); i++)
-	   this->bricks[i]->setTexture(this->render(bricks[i]));
-
-}
-
 void View::draw() {
-    
+    int i;
+
     // Desenhar a cena
     SDL_RenderClear(renderer);
     SDL_RenderCopy(renderer, this->map->getTexture(), nullptr, nullptr);
-    
-    for(int i = 0; i < this->bricks.size(); i++)
-    	SDL_RenderCopy(renderer, this->bricks[i]->getTexture(), nullptr, this->bricks[i]->getTarget());
-    
+
+    for(i = 0; i < this->map->getBricks().size(); i++)
+    	SDL_RenderCopy(renderer, this->map->getBricks()[i]->getTexture(), nullptr, this->map->getBricks()[i]->getTarget());
+
+    for(i = 0; i < this->map->getBlocks().size(); i++)
+      	SDL_RenderCopy(renderer, this->map->getBlocks()[i]->getTexture(), nullptr, this->map->getBlocks()[i]->getTarget());
+
     SDL_RenderCopy(renderer, this->character->getTexture(), nullptr, this->character->getTarget());
+
+    if(this->character->getBomb() != NULL){
+        if(this->character->getBomb()->getTexture() == NULL)
+          this->character->getBomb()->setTexture(this->render(this->character->getBomb()));
+        SDL_RenderCopy(renderer, this->character->getBomb()->getTexture(), nullptr, this->character->getBomb()->getTarget());
+    }
+
+
     SDL_RenderPresent(renderer);
     // Delay para diminuir o framerate
     SDL_Delay(10);

@@ -5,6 +5,7 @@
 #include "../include/models/map.h"
 #include "../include/models/texture.h"
 #include "../include/models/brick.h"
+#include "../include/models/block.h"
 #include "../include/view.h"
 #include "../include/controllers/movement.h"
 #include "../include/controllers/save.h"
@@ -22,13 +23,12 @@ int main() {
     // MVC
     Coord position = Coord(0,0);
     shared_ptr<Map> map (new Map("../assets/bg.jpg", 680, 440));
+    map->_populate("../assets/brick.png","../assets/block.png");
     shared_ptr<Char> character (new Char("../assets/player.png", position, 40, 40));
     shared_ptr<View> view (new View(map, character));
     shared_ptr<Movement> movement (new Movement(map, character));
     shared_ptr<Save> save (new Save(map, character));
-    save->load();
-    
-    view->construct("../assets/brick.png");
+    //save->load();
 
     // Error handling
 
@@ -44,12 +44,12 @@ int main() {
                 run = false;
             }
         }
-        
+
 	movement->move(event);
 	save->save();
 
         view->draw();
-        
+
     }
 
     return 0;

@@ -4,8 +4,11 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_image.h>
 #include <string>
+#include <vector>
 #include "texture.h"
 #include "coord.h"
+#include "brick.h"
+#include "block.h"
 
 using namespace std;
 
@@ -17,8 +20,8 @@ enum Component {
     Nothing,
 
     /** Destructable block */
-    Block,
-    
+    Bloc,
+
     /** Undestructable block */
     Wall
 };
@@ -27,9 +30,9 @@ class Map : public Texture{
     private:
         /** Map matrix size  */
         int COLS=17, ROWS=11;
-        
+
         /** Number of destructable blocks */
-        int NUM_BLOCKS = 20;
+        int NUM_BLOCKS = 30;
 
         /** Map matrix with components */
         Component map_matrix[17][11];
@@ -37,10 +40,11 @@ class Map : public Texture{
         /** Max size */
         int matrix_width, matrix_height;
 
-        /**
-         * Populates matrix with components
-         */
-        void _populate(int num_blocks);
+        /** vector with indestructive walls*/
+        vector<shared_ptr<Brick>> bricks;
+
+        /** vector with destructive walls*/
+        vector<shared_ptr<Block>> blocks;
 
     public:
         /**
@@ -58,13 +62,27 @@ class Map : public Texture{
          * @returns matrix x size
          */
         int getMaxX();
-        
+
         /**
          * Gets maximum Y position on matrix
          *
          * @returns matrix y size
          */
         int getMaxY();
+
+        /**
+         * Gets maximum X position on matrix
+         *
+         * @returns matrix x size
+         */
+        vector<shared_ptr<Brick>> getBricks();
+
+        /**
+         * Gets maximum X position on matrix
+         *
+         * @returns matrix x size
+         */
+        vector<shared_ptr<Block>> getBlocks();
 
         /**
          * Gets position in pixel from coordinate
@@ -83,6 +101,12 @@ class Map : public Texture{
          * @returns component found
          */
         Component getComponent(Coord* coord);
+
+
+        /**
+         * Populates matrix with components
+         */
+        void _populate(string brick_url, string block_url);
 };
 
 #endif

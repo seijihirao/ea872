@@ -2,8 +2,8 @@
 
 using namespace std;
 
-Char::Char(string char_url, Coord position, int width, int height) : 
-    Texture(char_url, width, height), 
+Char::Char(string char_url, Coord position, int width, int height) :
+    Texture(char_url, width, height),
     position(position) {
     this->target.x = 0;
     this->target.y = 0;
@@ -37,3 +37,10 @@ void Char::moveRight() {
     this->target.x += 40;
 }
 
+void Char::createBomb(string bomb_url, int x, int y){
+    shared_ptr<Bomb> bomb(new Bomb(bomb_url,x,y));
+}
+
+shared_ptr<Bomb> Char:: getBomb(){
+  return this->bomb;
+}

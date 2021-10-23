@@ -14,9 +14,9 @@ class Texture {
 
         /** SDL texture pointer */
         SDL_Texture* texture;
-	
+
         /** image file url */
-	    string url;
+	      string url;
 
         /** target size */
         int width, height;
@@ -58,21 +58,21 @@ class Texture {
          * @param texture - SDL texture
          */
         void setTexture(SDL_Texture* texture);
-        
+
         /**
          * Gets sprite filename
          *
          * @returns file url
          */
         const char* getFile();
-        
+
         /**
          * Gets target width
          *
          * @returns sprite width
          */
         int* getWidth();
-        
+
         /**
          * Gets target height
          *

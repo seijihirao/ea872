@@ -5,6 +5,7 @@
 #include <SDL2/SDL_image.h>
 #include "texture.h"
 #include "coord.h"
+#include "bomb.h"
 #include "../ext/json.hpp"
 
 using namespace std;
@@ -13,6 +14,9 @@ class Char : public Texture {
     private:
         /** position - TODO: move to Texture class */
         Coord position;
+
+        /** player bomb */
+        shared_ptr<Bomb> bomb;
 
     public:
 	NLOHMANN_DEFINE_TYPE_INTRUSIVE(Char, position);
@@ -54,6 +58,16 @@ class Char : public Texture {
          * Moves charater right
          */
         void moveRight();
+
+        /**
+         * create bomb
+         */
+        void createBomb(string bomb_url, int x, int y);
+
+        /**
+         * return bomb
+         */
+        shared_ptr<Bomb> getBomb();
 };
 
 #endif

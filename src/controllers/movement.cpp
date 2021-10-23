@@ -24,6 +24,9 @@ void Movement::move(SDL_Event event){
 	            case SDLK_DOWN:
 		            this->walkDown();
 		            break;
+              case SDLK_SPACE:
+                this->character->createBomb("../../assets/bomb.png",40*this->character->getPosition().getX(),40*this->character->getPosition().getY());
+                break;
 	            default:
 		            break;
             }
@@ -32,7 +35,7 @@ void Movement::move(SDL_Event event){
             break;
         default:
             break;
-    }	
+    }
 }
 
 void Movement::walkLeft() {

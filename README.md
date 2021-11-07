@@ -8,7 +8,7 @@ blocos destrutíveis, outros personagens, ou a si mesmo. Have Fun!
 
 ## Rodando
 
-Na pasta raíz do projeto.
+Na pasta raíz do projeto (client ou server).
 
 ```
 $ mkdir bin

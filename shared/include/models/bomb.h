@@ -24,4 +24,11 @@ class Bomb : public Texture{
     	 * @param height - sprite height
     	 */
         Bomb(string bomb_url, Coord position, int width, int height);
+
+        /**
+       * Get position
+       *
+       *@returns position
+       */
+        Coord getPosition();
 };

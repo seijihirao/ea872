@@ -7,6 +7,7 @@ Char::Char(string char_url, Coord position, int width, int height) :
     position(position) {
     this->target.x = 0;
     this->target.y = 0;
+    this->alive = true;
 }
 
 Coord Char::getPosition() {
@@ -35,4 +36,12 @@ void Char::moveLeft() {
 void Char::moveRight() {
     this->position.setX(this->position.getX() + 1);
     this->target.x += 40;
+}
+
+bool Char::isAlive(){
+  return this->alive;
+}
+
+void Char:: kill(){
+  this->alive = false;
 }

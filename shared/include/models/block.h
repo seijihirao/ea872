@@ -16,4 +16,18 @@ class Block : public Texture{
     	*@param y - target y from screen
     	*/
         Block(string wall_url, int x, int y);
+
+        /**
+         * Gets current x position
+         *
+         * @returns x position
+         */
+        int getX();
+
+        /**
+         * Gets current y position
+         *
+         * @returns y position
+         */
+        int getY();
 };

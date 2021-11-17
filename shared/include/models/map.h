@@ -22,7 +22,10 @@ enum Component {
     Bloc,
 
     /** Undestructable block */
-    Wall
+    Wall,
+
+    /*bomb */
+    Boom
 };
 
 class Map : public Texture{
@@ -70,16 +73,16 @@ class Map : public Texture{
         int getMaxY();
 
         /**
-         * Gets maximum X position on matrix
+         * Gets brick vector
          *
-         * @returns matrix x size
+         * @returns vector brick
          */
         vector<shared_ptr<Brick>> getBricks();
 
         /**
-         * Gets maximum X position on matrix
+         * Gets mblock vector
          *
-         * @returns matrix x size
+         * @returns vector block
          */
         vector<shared_ptr<Block>> getBlocks();
 
@@ -106,4 +109,28 @@ class Map : public Texture{
          * Populates matrix with components
          */
         void _populate(string brick_url, string block_url);
+
+
+        /**
+         * Sets a bomb in matrix
+         */
+        void setBomb_matrix(Coord coord);
+
+        /**
+         * Check the type of component from matrix
+         *
+         *@param x - x cordinate
+         *@param y - y coordinate
+         *
+         *@returns component
+         */
+        Component checkComponent(int x, int y);
+
+        /**
+         * If bomb explodes a "Bloc", turns into "Nothing"
+         *
+         * @param x - coordinate x where happens explosion
+         * @param y - coordinate y where happens explosion
+         */
+        void setAfterExplosion(int x, int y);
 };

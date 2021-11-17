@@ -69,3 +69,31 @@ vector<shared_ptr<Brick>> Map:: getBricks(){
 vector<shared_ptr<Block>> Map:: getBlocks(){
   return this->blocks;
 }
+
+void Map::setBomb_matrix(Coord coord){
+  int x,y;
+  x = coord.getX();
+  y = coord.getY();
+  this->map_matrix[x][y] = Boom;
+}
+
+Component Map:: checkComponent(int x, int y){
+  return this->map_matrix[x][y];
+}
+
+void Map::setAfterExplosion(int x, int y){
+
+  if(this->map_matrix[x][y] == Bloc){
+
+    for(int i = 0; i < this->blocks.size(); i++){
+      if((this->blocks[i]->getX() == x) && (this->blocks[i]->getY() == y))
+        this->blocks.erase(blocks.begin()+i);
+    }
+
+    this->map_matrix[x][y] = Nothing;
+  }
+
+  else if(this->map_matrix[x][y] == Boom){
+    this->map_matrix[x][y] = Nothing;
+  }
+}

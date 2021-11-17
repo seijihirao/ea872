@@ -88,7 +88,8 @@ void View::draw() {
       	SDL_RenderCopy(renderer, this->map->getBlocks()[i]->getTexture(), nullptr, this->map->getBlocks()[i]->getTarget());
     }
 
-    SDL_RenderCopy(renderer, this->character->getTexture(), nullptr, this->character->getTarget());
+    if(this->character->isAlive() == true)
+      SDL_RenderCopy(renderer, this->character->getTexture(), nullptr, this->character->getTarget());
 
     for(i = 0; i < this->bombs.size(); i++) {
         SDL_RenderCopy(renderer, bombs[i]->getTexture(), nullptr, bombs[i]->getTarget());

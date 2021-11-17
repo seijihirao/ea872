@@ -8,3 +8,7 @@ Bomb::Bomb(string char_url, Coord position, int width, int height) :
     this->target.x = 40 * position.getX();
     this->target.y = 40 * position.getY();
 }
+
+Coord Bomb:: getPosition(){
+  return this->position;
+}

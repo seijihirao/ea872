@@ -5,6 +5,7 @@
 #include "texture.h"
 #include "coord.h"
 #include "bomb.h"
+#include <iostream>
 #include "../ext/json.hpp"
 
 using namespace std;
@@ -13,6 +14,9 @@ class Char : public Texture {
     private:
         /** position - TODO: move to Texture class */
         Coord position;
+
+        /** alive - player's situation (alive or dead) */
+        bool alive;
 
     public:
 	    NLOHMANN_DEFINE_TYPE_INTRUSIVE(Char, position);
@@ -54,4 +58,16 @@ class Char : public Texture {
          * Moves charater right
          */
         void moveRight();
+
+        /**
+         * Verify if the character is alive
+         *
+         *@returns true or false
+         */
+        bool isAlive();
+
+        /**
+         * Sets alive to false
+         */
+        void kill();
 };

@@ -12,5 +12,6 @@ int main() {
     vector<Char> characters = {};
 
     Sync sync = Sync(map, characters);
+    sync.sync();
     return 0; 
 }

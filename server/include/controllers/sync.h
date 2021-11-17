@@ -14,6 +14,15 @@ class Sync {
         /** Map pointer*/
         const shared_ptr<Map> map;
 
+        /** Socket to add new player */
+        udp::socket* new_player_socket;
+
+        /** Socket to sync */
+        udp::socket* sync_socket;
+
+        /** Socket to sync */
+        udp::endpoint remote_ep;
+
     public:
         /**
          * Creates a service to sync data with clients via UDP

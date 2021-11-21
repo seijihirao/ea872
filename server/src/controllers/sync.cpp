@@ -3,25 +3,42 @@
 #include <iostream>
 #include <boost/asio.hpp>
 #include <boost/bind.hpp>
+#include "../../../ext/json.hpp"
 
 using namespace std;
 using boost::asio::ip::udp;
 
 Sync::Sync(shared_ptr<Map> map, vector<Char> characters) : map(map), characters(characters) {
-    boost::asio::io_service io_service;
-    
-    udp::endpoint local_ep(udp::v4(), 9001);
-    udp::socket sync_socket(io_service, local_ep);
-
-    udp::endpoint remote_ep;
-    
-    this->sync_socket = &sync_socket;
-    this->remote_ep = &remote_ep; 
+    cout << "Server started" << endl;
 }
 
 void Sync::sync() {
-    char msg[120];
-    (*this->sync_socket).receive_from(boost::asio::buffer(msg, 120), *this->remote_ep);
-    cout << msg << endl;
-    (*this->sync_socket).send_to(boost::asio::buffer(msg), *this->remote_ep);
+    boost::asio::io_service io_service;
+    
+    udp::endpoint local_ep (udp::v4(), 9001);
+    udp::socket sync_socket (io_service, local_ep);
+
+    udp::endpoint remote_ep;
+
+    while(true) {
+        char input[120];
+        sync_socket.receive_from(boost::asio::buffer(input, 120), remote_ep);
+        auto data = json::parse(input);
+        if (data["player"] == -1) {
+            this->_createNewPlayer();
+
+            string response("Success");
+            sync_socket.send_to(boost::asio::buffer(response), remote_ep);
+        } else {
+            cout << data["player"] << endl;
+        }
+    }
+}
+
+int Sync::_createNewPlayer() {
+    int player_number = this->characters.size() - 1;
+
+    cout << "Assigned player " << player_number << endl;
+    
+    return player_number;
 }

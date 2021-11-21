@@ -11,6 +11,7 @@ find_library(SDL2_IMAGE_LIBRARY NAME SDL2)
 add_executable(ea872_server src/main.cpp)
 
 # Especificar onde estao os header files
+include_directories(../ext)
 include_directories(../shared/include)
 include_directories(include)
 

@@ -16,11 +16,14 @@ class Sync {
         /** Map pointer*/
         const shared_ptr<Map> map;
 
-        /** UDP socket */
-        udp::socket skt;
+        /** UDP socket to start new game */
+        shared_ptr<udp::socket> new_game_socket;
+
+        /** UDP socket to sync data */
+        shared_ptr<udp::socket> sync_socket;
 
         /** Remote endpoint */
-        udp::endpoint remote_ep;
+        shared_ptr<udp::endpoint> remote_ep;
 
     public:
         /**

@@ -3,8 +3,11 @@
 
 #include "../../../shared/include/models/map.h"
 #include "../../../shared/include/models/char.h"
+#include <boost/asio.hpp>
+#include <boost/bind.hpp>
 
 using namespace std;
+using boost::asio::ip::udp;
 
 class Sync {
     private:
@@ -13,15 +16,6 @@ class Sync {
 
         /** Map pointer*/
         const shared_ptr<Map> map;
-
-        /** Socket to add new player */
-        udp::socket* new_player_socket;
-
-        /** Socket to sync */
-        udp::socket* sync_socket;
-
-        /** Socket to sync */
-        udp::endpoint remote_ep;
 
     public:
         /**
@@ -36,6 +30,13 @@ class Sync {
          * Synchronizes data with client
          */
         void sync();
+
+        /**
+         * Creates new player
+         *
+         * @returns player number
+         */
+        int _createNewPlayer();
 
 };
 

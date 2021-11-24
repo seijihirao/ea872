@@ -15,17 +15,17 @@ Sync::Sync(shared_ptr<Map> map, vector<Char> characters) : map(map), characters(
 
 void Sync::sync() {
     boost::asio::io_service io_service;
-    
+
     udp::endpoint local_ep (udp::v4(), 9001);
     udp::socket sync_socket (io_service, local_ep);
 
     udp::endpoint remote_ep;
-    
+
     cout << "Server started" << endl;
 
     while(true) {
         char input[4096];
-        memset(input, 0, 4096); 
+        memset(input, 0, 4096);
         sync_socket.receive_from(boost::asio::buffer(input, 4096), remote_ep);
 
         string request = input;
@@ -39,11 +39,11 @@ void Sync::sync() {
         } else {
             Coord position = data["characters"][player_number]["position"];
             this->characters[player_number].setPosition(position);
-            if (!data["alive"]) {
+            if (!data["characters"][player_number]["alive"]) {
                 this->characters[player_number].kill();
             }
         }
-        
+
         response["player"] = player_number;
         response["characters"] = this->characters;
         cout << "Response: " << response.dump() << endl;
@@ -55,10 +55,10 @@ int Sync::_createNewPlayer() {
     int player_number = this->characters.size();
     Coord position = Coord(0, 0);
     Char character(position);
-    
+
     this->characters.push_back(character);
 
     cout << "Assigned player " << player_number << endl;
-    
+
     return player_number;
 }

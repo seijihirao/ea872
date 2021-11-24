@@ -86,6 +86,8 @@ void View::renderChars(shared_ptr<vector<shared_ptr<Char>>> characters) {
 }
 
 void View::draw() {
+    this->renderChars(this->characters);
+
     int i;
 
     // Desenhar a cena

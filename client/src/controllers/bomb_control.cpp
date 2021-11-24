@@ -31,15 +31,28 @@ void explode(shared_ptr<Bomb> bomb, shared_ptr<Char> character, shared_ptr<Map> 
 
   this_thread::sleep_for(2000ms);
 
-  int x,y;
+  int x,y,aux1, aux2;
   x = bomb->getPosition().getX();
   y = bomb->getPosition().getY();
 
   bomb->setDestroyed();
 
-  if(character->getPosition().getX() == x || character->getPosition().getX() == x+1 || (character->getPosition().getX() == x+2  && map->checkComponent(x+1,y) != Wall))
-    if(character->getPosition().getY() == y || character->getPosition().getY() == y+1 || (character->getPosition().getY() == y+2 && map->checkComponent(x,y+1) != Wall))
-      character->kill();
+    if(character->getPosition().getX() == x || character->getPosition().getX() == x+1 || (character->getPosition().getX() == x+2  && map->checkComponent(x+1,y) != Wall)){
+      if(character->getPosition().getY() == y || character->getPosition().getY() == y+1 || (character->getPosition().getY() == y+2 && map->checkComponent(x,y+1) != Wall))
+        character->kill();
+    }
+
+    if(x-2 >= 0 || x-1 >= 0){
+      if((character->getPosition().getX() == x-2 && map->checkComponent(x-1,y) != Wall)  || character->getPosition().getX() == x-1)
+        if(character->getPosition().getY() == y)
+          character->kill();
+    }
+
+    if(y-2 >= 0 || y-1 >= 0){
+      if((character->getPosition().getY() == y-2 && map->checkComponent(x,y-1) != Wall)  || character->getPosition().getY() == y-1)
+        if(character->getPosition().getX() == x)
+          character->kill();
+    }
 
   if(y+1 < map->getMaxY()){
     map->setAfterExplosion(x,y+1);

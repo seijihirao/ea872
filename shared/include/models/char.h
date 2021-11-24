@@ -12,14 +12,14 @@ using namespace std;
 
 class Char : public Texture {
     private:
-        /** position - TODO: move to Texture class */
+        /** position */
         Coord position;
 
         /** alive - player's situation (alive or dead) */
-        bool alive;
+        bool alive = true;
 
     public:
-	      NLOHMANN_DEFINE_TYPE_INTRUSIVE(Char, position);
+	      NLOHMANN_DEFINE_TYPE_INTRUSIVE(Char, position, alive);
         /**
          * Create a new char sprite
          *

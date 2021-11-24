@@ -29,7 +29,7 @@ void Sync::sync() {
         sync_socket.receive_from(boost::asio::buffer(input, 4096), remote_ep);
 
         string request = input;
-        cout << request << endl;
+        cout << "Request: " << request << endl;
 
         auto data = json::parse(request);
         json response;
@@ -39,10 +39,14 @@ void Sync::sync() {
         } else {
             Coord position = data["characters"][player_number]["position"];
             this->characters[player_number].setPosition(position);
+            if (!data["alive"]) {
+                this->characters[player_number].kill();
+            }
         }
         
         response["player"] = player_number;
         response["characters"] = this->characters;
+        cout << "Response: " << response.dump() << endl;
         sync_socket.send_to(boost::asio::buffer(response.dump()), remote_ep);
     }
 }

@@ -6,9 +6,7 @@
 using namespace std;
 
 void syncData(shared_ptr<Sync> sync) {
-  // while (true) {
     sync->sync();
-  // }
 }
 
 int main() {

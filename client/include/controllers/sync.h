@@ -11,19 +11,13 @@ using boost::asio::ip::udp;
 class Sync {
     private:
         /** Character pointer */
-        const shared_ptr<Char> character;
+        shared_ptr<vector<shared_ptr<Char>>> characters;
 
         /** Map pointer*/
         const shared_ptr<Map> map;
-
-        /** UDP socket to start new game */
-        shared_ptr<udp::socket> new_game_socket;
-
-        /** UDP socket to sync data */
-        shared_ptr<udp::socket> sync_socket;
-
-        /** Remote endpoint */
-        shared_ptr<udp::endpoint> remote_ep;
+        
+        /** */
+        int player_number = -1;
 
     public:
         /**
@@ -32,11 +26,25 @@ class Sync {
          * @param map - map in which character will walk
          * @param character - character to move
          */
-        Sync(shared_ptr<Map> map, shared_ptr<Char> character);
+        Sync(shared_ptr<Map> map, shared_ptr<vector<shared_ptr<Char>>> characters);
 
         /**
          * Synchronizes data with server
          */
         void sync();
+        
+        /**
+         * Gets current player number
+         *
+         * @returns player number or -1 if no number assigned
+         */
+        int getPlayerNumber();
+
+        /**
+         * Gets if player has number
+         *
+         * @returns player number != -1
+         */
+        bool hasPlayerNumber();
 
 };

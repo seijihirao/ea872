@@ -10,12 +10,24 @@
 using namespace std;
 
 void mainLoop(shared_ptr<Map> map,
-              shared_ptr<Char> character) {
+              shared_ptr<vector<shared_ptr<Char>>> characters,
+              shared_ptr<Sync> sync) {
 
-  shared_ptr<View> view (new View(map, character));
+  while (!sync->hasPlayerNumber()) {
+    this_thread::sleep_for(1000ms);
+  }
   
-shared_ptr<Movement> movement (new Movement(map, character));
+  cout << "Started game! Player number: " << sync->getPlayerNumber() << endl;
+
+  shared_ptr<View> view (new View(map, characters));
+  
+  cout << "View initialized!" << endl;
+  
+  shared_ptr<Char> character = (*characters)[sync->getPlayerNumber()];
+  shared_ptr<Movement> movement (new Movement(map, character));
   shared_ptr<BombControl> bomb_control (new BombControl(map, character));
+  
+  cout << "Controllers initialized!" << endl;
 
   bool run = true;
 
@@ -30,7 +42,7 @@ shared_ptr<Movement> movement (new Movement(map, character));
       }
     }
 
-    if(character->isAlive()){
+    if((*characters)[sync->getPlayerNumber()]->isAlive()){
       movement->move(event);
       shared_ptr<Bomb> bomb = bomb_control->listen(event);
       if(bomb != nullptr) {
@@ -41,15 +53,12 @@ shared_ptr<Movement> movement (new Movement(map, character));
     // save->save();
 
     view->draw();
-    this_thread::sleep_for(100ms);
+    this_thread::sleep_for(400ms);
   }
 }
 
 void syncData(shared_ptr<Sync> sync) {
-  while (true) {
     sync->sync();
-    this_thread::sleep_for(1000ms);
-  }
 }
 
 int main() {
@@ -63,16 +72,16 @@ int main() {
   // MVC
   Coord position = Coord(0,0);
   shared_ptr<Map> map (new Map("../assets/bg.jpg", 680, 440));
-  shared_ptr<Char> character (new Char("../assets/player.png", position, 40, 40));
-  shared_ptr<Save> save (new Save(map, character));
-  //save->load();
+  shared_ptr<vector<shared_ptr<Char>>> characters (new vector<shared_ptr<Char>>({}));
+  // shared_ptr<Save> save (new Save(map, character));
+  // save->load();
 
   // Server
-  shared_ptr<Sync> sync (new Sync(map, character));
+  shared_ptr<Sync> sync (new Sync(map, characters));
   thread sync_data (syncData, sync);
   
   // Main Loop
-  mainLoop(map, character);
+  mainLoop(map, characters, sync);
 
   return 0;
 }

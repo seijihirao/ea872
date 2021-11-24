@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../ext/json.hpp"
+#include "../../../ext/json.hpp"
 
 using namespace std;
 using nlohmann::json;
@@ -14,7 +14,7 @@ class Coord {
         int y;
 
     public:
-	NLOHMANN_DEFINE_TYPE_INTRUSIVE(Coord, x, y);
+      	NLOHMANN_DEFINE_TYPE_INTRUSIVE(Coord, x, y);
 
         /**
          * Coordinate object, basically a pair of integers

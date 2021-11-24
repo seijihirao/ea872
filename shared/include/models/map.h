@@ -8,6 +8,7 @@
 #include "coord.h"
 #include "brick.h"
 #include "block.h"
+#include "../../../ext/json.hpp"
 
 using namespace std;
 
@@ -24,7 +25,7 @@ enum Component {
     /** Undestructable block */
     Wall,
 
-    /*bomb */
+    /* bomb */
     Boom
 };
 

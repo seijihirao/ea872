@@ -12,7 +12,7 @@ using boost::asio::ip::udp;
 class Sync {
     private:
         /** Character pointer */
-        const vector<Char> characters;
+        vector<Char> characters;
 
         /** Map pointer*/
         const shared_ptr<Map> map;

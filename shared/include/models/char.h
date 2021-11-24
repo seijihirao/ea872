@@ -6,7 +6,7 @@
 #include "coord.h"
 #include "bomb.h"
 #include <iostream>
-#include "../ext/json.hpp"
+#include "../../../ext/json.hpp"
 
 using namespace std;
 
@@ -19,15 +19,23 @@ class Char : public Texture {
         bool alive;
 
     public:
-	    NLOHMANN_DEFINE_TYPE_INTRUSIVE(Char, position);
+	      NLOHMANN_DEFINE_TYPE_INTRUSIVE(Char, position);
         /**
-         * Create a new char sprite on position 0, 0
+         * Create a new char sprite
          *
          * @param char_url - image file url
+         * @param position - initial position
          * @param width - char width
          * @param height - char height
          */
         Char(string char_url, Coord position, int width, int height);
+        
+        /**
+         * Create a new char sprite with width and height 40x40
+         *
+         * @param position - initial position
+         */
+        Char(Coord position);
 
         /**
          * Gets current position on matrix

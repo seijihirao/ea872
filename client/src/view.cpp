@@ -5,7 +5,7 @@ const int SCREEN_HEIGHT = 440;
 
 using namespace std;
 
-View::View(shared_ptr<Map> map, shared_ptr<Char> character) : map(map), character(character){
+View::View(shared_ptr<Map> map, shared_ptr<vector<shared_ptr<Char>>> characters) : map(map), characters(characters){
     // Criando uma janela
     window = nullptr;
     window = SDL_CreateWindow("EA872",
@@ -30,31 +30,35 @@ View::View(shared_ptr<Map> map, shared_ptr<Char> character) : map(map), characte
     }
 
     this->map->setTexture(this->render(map));
-    this->character->setTexture(this->render(character));
+    this->renderChars(this->characters);
 
-    for(int i = 0; i < this->map->getBricks().size(); i++)
+    for(int i = 0; i < this->map->getBricks().size(); i++) {
       this->map->getBricks()[i]->setTexture(this->render(this->map->getBricks()[i]));
+    }
 
-    for(int i = 0; i < this->map->getBlocks().size(); i++)
+    for(int i = 0; i < this->map->getBlocks().size(); i++) {
       this->map->getBlocks()[i]->setTexture(this->render(this->map->getBlocks()[i]));
+    }
 }
 
 View::~View() {
     int i;
 
-    for(i = 0; i < this->map->getBricks().size(); i++) {
-    	SDL_DestroyTexture(this->map->getBricks()[i]->getTexture());
+    for(shared_ptr<Brick> brick : this->map->getBricks()) {
+    	SDL_DestroyTexture(brick->getTexture());
     }
 
-    for(i = 0; i < this->map->getBlocks().size(); i++) {
-      SDL_DestroyTexture(this->map->getBlocks()[i]->getTexture());
+    for(shared_ptr<Block> block : this->map->getBlocks()) {
+      SDL_DestroyTexture(block->getTexture());
     }
 
-    for(i = 0; i < this->bombs.size(); i++) {
-      SDL_DestroyTexture(this->bombs[i]->getTexture());
+    for(shared_ptr<Bomb> bomb : this->bombs) {
+      SDL_DestroyTexture(bomb->getTexture());
     }
 
-     SDL_DestroyTexture(character->getTexture());
+    for(shared_ptr<Char> character : *this->characters) {
+      SDL_DestroyTexture(character->getTexture());
+    }
 
      SDL_DestroyTexture(map->getTexture());
      SDL_DestroyRenderer(renderer);
@@ -73,6 +77,14 @@ void View::renderBomb(shared_ptr<Bomb> bomb) {
     this->bombs.push_back(bomb);
 }
 
+void View::renderChars(shared_ptr<vector<shared_ptr<Char>>> characters) {
+    while (characters->size() > this->rendered_players) {
+        shared_ptr<Char> character = (*characters)[this->rendered_players];
+        character->setTexture(this->render(character));
+        this->rendered_players += 1;
+    }
+}
+
 void View::draw() {
     int i;
 
@@ -88,8 +100,12 @@ void View::draw() {
       	SDL_RenderCopy(renderer, this->map->getBlocks()[i]->getTexture(), nullptr, this->map->getBlocks()[i]->getTarget());
     }
 
-    if(this->character->isAlive() == true)
-      SDL_RenderCopy(renderer, this->character->getTexture(), nullptr, this->character->getTarget());
+    for (shared_ptr<Char> character : *this->characters) {
+        if(character->isAlive()) {
+            SDL_RenderCopy(renderer, character->getTexture(), nullptr, character->getTarget());
+        }
+    }
+
 
     for(i = 0; i < this->bombs.size(); i++) {
         SDL_RenderCopy(renderer, bombs[i]->getTexture(), nullptr, bombs[i]->getTarget());

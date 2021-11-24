@@ -10,12 +10,17 @@ Char::Char(string char_url, Coord position, int width, int height) :
     this->alive = true;
 }
 
+Char::Char(Coord position) : Char("../assets/player.png", position, 40, 40) {
+}
+
 Coord Char::getPosition() {
     return this->position;
 }
 
 void Char::setPosition(Coord position) {
     this->position = position;
+    this->target.x = position.getX() * 40;
+    this->target.y = position.getY() * 40;
 }
 
 void Char::moveUp() {

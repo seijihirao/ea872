@@ -11,6 +11,7 @@ class Bomb : public Texture{
     private:
         /** position: move to Texture class */
         Coord position;
+        bool alive = true;
 
     public:
 	    NLOHMANN_DEFINE_TYPE_INTRUSIVE(Bomb, position);
@@ -31,4 +32,18 @@ class Bomb : public Texture{
        *@returns position
        */
         Coord getPosition();
+
+        /**
+       * Gets alive situation
+       *
+       *@returns alive
+       */
+
+        bool isAlive();
+
+        /**
+       * Sets bomb as destroyed
+       */
+
+        void setDestroyed();
 };

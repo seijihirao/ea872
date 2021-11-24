@@ -7,6 +7,9 @@
 using namespace std;
 
 class Block : public Texture{
+      private:
+        bool alive = true;
+
       public:
 
         /**
@@ -30,4 +33,16 @@ class Block : public Texture{
          * @returns y position
          */
         int getY();
+
+        /**
+         * Sets "alive" false
+         */
+        void destroy();
+
+        /**
+         * Gets alive
+         *
+         * @returns alive
+         */
+        bool isAlive();
 };

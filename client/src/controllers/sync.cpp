@@ -51,13 +51,13 @@ void Sync::sync() {
                 this->characters->push_back(new_character);
             }
             (*this->characters)[i]->setPosition(position);
-            
-            bool isAlive = response_data["character"][i]["alive"];
+
+            bool isAlive = response_data["characters"][i]["alive"];
             if (!isAlive) {
                 (*this->characters)[i]->kill();
             }
         }
-        this_thread::sleep_for(200ms);
+        this_thread::sleep_for(100ms);
     }
 }
 

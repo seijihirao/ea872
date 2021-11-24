@@ -99,6 +99,7 @@ void View::draw() {
     }
 
     for(i = 0; i < this->map->getBlocks().size(); i++) {
+      if(this->map->getBlocks()[i]->isAlive())
       	SDL_RenderCopy(renderer, this->map->getBlocks()[i]->getTexture(), nullptr, this->map->getBlocks()[i]->getTarget());
     }
 
@@ -108,8 +109,8 @@ void View::draw() {
         }
     }
 
-
     for(i = 0; i < this->bombs.size(); i++) {
+      if(this->bombs[i]->isAlive())
         SDL_RenderCopy(renderer, bombs[i]->getTexture(), nullptr, bombs[i]->getTarget());
     }
 

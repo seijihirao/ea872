@@ -1,5 +1,6 @@
 #include "../../include/controllers/bomb_control.h"
 #include <iostream>
+#include <thread>
 
 using namespace std;
 
@@ -26,48 +27,56 @@ shared_ptr<Bomb> BombControl::listen(SDL_Event event){
   return nullptr;
 }
 
-shared_ptr<Bomb> BombControl::createNewBomb(){
-  shared_ptr<Bomb> bomb(new Bomb("../assets/bomb.png", this->character->getPosition(), 40, 40));
-  this->map->setBomb_matrix(this->character->getPosition());
+void explode(shared_ptr<Bomb> bomb, shared_ptr<Char> character, shared_ptr<Map> map){
 
-  return this->explode(bomb); //MODIFICAR DEPOIS PARA RETONAR SÓ A BOMBA, NÃO A EXPLOSÃO
-}
+  this_thread::sleep_for(2000ms);
 
-shared_ptr<Bomb> BombControl::explode(shared_ptr<Bomb> bomb){
   int x,y;
   x = bomb->getPosition().getX();
   y = bomb->getPosition().getY();
 
-  if(this->character->getPosition().getX() == x || this->character->getPosition().getX() == x+1 || this->character->getPosition().getX() == x+2)
-    if(this->character->getPosition().getY() == y || this->character->getPosition().getY() == y+1 || this->character->getPosition().getY() == y+2)
-      this->character->kill();
+  bomb->setDestroyed();
 
+  if(character->getPosition().getX() == x || character->getPosition().getX() == x+1 || (character->getPosition().getX() == x+2  && map->checkComponent(x+1,y) != Wall))
+    if(character->getPosition().getY() == y || character->getPosition().getY() == y+1 || (character->getPosition().getY() == y+2 && map->checkComponent(x,y+1) != Wall))
+      character->kill();
 
-  if(y+1 < this->map->getMaxY()){
-    this->map->setAfterExplosion(x,y+1);
-    if(y+2 < this->map->getMaxY() && this->map->checkComponent(x,y+1) != Wall)
-      this->map->setAfterExplosion(x,y+2);
+  if(y+1 < map->getMaxY()){
+    map->setAfterExplosion(x,y+1);
+    if(y+2 < map->getMaxY() && map->checkComponent(x,y+1) != Wall)
+      map->setAfterExplosion(x,y+2);
   }
 
   if(y-1 > 0){
-    this->map->setAfterExplosion(x,y-1);
-    if(y-2 > 0 && this->map->checkComponent(x,y-1) != Wall)
-      this->map->setAfterExplosion(x,y-2);
+    map->setAfterExplosion(x,y-1);
+    if(y-2 > 0 && map->checkComponent(x,y-1) != Wall)
+      map->setAfterExplosion(x,y-2);
   }
 
-  if(x+1 < this->map->getMaxX()){
-    this->map->setAfterExplosion(x+1,y);
-    if(x+2 < this->map->getMaxX() && this->map->checkComponent(x+1,y) != Wall)
-      this->map->setAfterExplosion(x+2,y);
+  if(x+1 < map->getMaxX()){
+    map->setAfterExplosion(x+1,y);
+    if(x+2 < map->getMaxX() && map->checkComponent(x+1,y) != Wall)
+      map->setAfterExplosion(x+2,y);
   }
 
   if(x-1 > 0){
-    this->map->setAfterExplosion(x-1,y);
-    if(x-2 > 0 && this->map->checkComponent(x-1,y) != Wall)
-      this->map->setAfterExplosion(x-2,y);
+    map->setAfterExplosion(x-1,y);
+    if(x-2 > 0 && map->checkComponent(x-1,y) != Wall)
+      map->setAfterExplosion(x-2,y);
   }
 
-  this->map->setAfterExplosion(x,y);
+  map->setAfterExplosion(x,y);
 
-  return nullptr;
+}
+
+
+shared_ptr<Bomb> BombControl::createNewBomb(){
+
+  shared_ptr<Bomb> bomb(new Bomb("../assets/bomb.png", this->character->getPosition(), 40, 40));
+  this->map->setBomb_matrix(this->character->getPosition());
+
+  thread t_explode(explode,bomb,this->character,this->map);
+  t_explode.detach();
+
+  return bomb;
 }

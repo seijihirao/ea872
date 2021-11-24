@@ -14,3 +14,11 @@ int Block::getX(){
 int Block::getY(){
   return (this->target.y)/40;
 }
+
+void Block::destroy(){
+  this->alive = false;
+}
+
+bool Block::isAlive(){
+  return this->alive;
+}

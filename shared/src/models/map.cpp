@@ -87,7 +87,7 @@ void Map::setAfterExplosion(int x, int y){
 
     for(int i = 0; i < this->blocks.size(); i++){
       if((this->blocks[i]->getX() == x) && (this->blocks[i]->getY() == y))
-        this->blocks.erase(blocks.begin()+i);
+        this->blocks[i]->destroy();
     }
 
     this->map_matrix[x][y] = Nothing;

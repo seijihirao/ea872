@@ -16,17 +16,17 @@ void mainLoop(shared_ptr<Map> map,
   while (!sync->hasPlayerNumber()) {
     this_thread::sleep_for(1000ms);
   }
-  
+
   cout << "Started game! Player number: " << sync->getPlayerNumber() << endl;
 
   shared_ptr<View> view (new View(map, characters));
-  
+
   cout << "View initialized!" << endl;
-  
+
   shared_ptr<Char> character = (*characters)[sync->getPlayerNumber()];
   shared_ptr<Movement> movement (new Movement(map, character));
   shared_ptr<BombControl> bomb_control (new BombControl(map, character));
-  
+
   cout << "Controllers initialized!" << endl;
 
   bool run = true;
@@ -44,16 +44,16 @@ void mainLoop(shared_ptr<Map> map,
 
     if((*characters)[sync->getPlayerNumber()]->isAlive()){
       movement->move(event);
-      shared_ptr<Bomb> bomb = bomb_control->listen(event);
-      if(bomb != nullptr) {
-        view->renderBomb(bomb);
-      }
+        shared_ptr<Bomb> bomb = bomb_control->listen(event);
+        if(bomb != nullptr) {
+          view->renderBomb(bomb);
+        }
     }
 
     // save->save();
 
     view->draw();
-    this_thread::sleep_for(400ms);
+    this_thread::sleep_for(200ms);
   }
 }
 
@@ -79,7 +79,7 @@ int main() {
   // Server
   shared_ptr<Sync> sync (new Sync(map, characters));
   thread sync_data (syncData, sync);
-  
+
   // Main Loop
   mainLoop(map, characters, sync);
 

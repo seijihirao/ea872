@@ -12,3 +12,11 @@ Bomb::Bomb(string char_url, Coord position, int width, int height) :
 Coord Bomb:: getPosition(){
   return this->position;
 }
+
+bool Bomb:: isAlive(){
+  return this->alive;
+}
+
+void Bomb:: setDestroyed(){
+  this->alive = false;
+}

@@ -24,7 +24,7 @@ void Save::load() {
 	file.open("save.json");
 	file >> j;
 	file.close();
-	
+
 	this->character->setPosition(j["character"]["position"]);
 }
 

@@ -9,46 +9,46 @@
 using namespace std;
 
 class Movement {
-    private:
-        /** Character pointer */
-        const shared_ptr<Char> character;
+private:
+  /** Character pointer */
+  const shared_ptr<Char> character;
 
-        /** Map pointer */
-        const shared_ptr<Map> map;
+  /** Map pointer */
+  const shared_ptr<Map> map;
 
-    public:
-        /**
-         * Creates a service to manage character movement
-         *
-         * @param map - map in which character will walk
-         * @param character - character to move
-         */
-        Movement(shared_ptr<Map> map, shared_ptr<Char> character);
-        
-        /**
-         * Moves character deppending on key event
-         *
-         * @param event - keyboard event
-         */
-        void move(SDL_Event event);
+public:
+  /**
+  * Creates a service to manage character movement
+  *
+  * @param map - map in which character will walk
+  * @param character - character to move
+  */
+  Movement(shared_ptr<Map> map, shared_ptr<Char> character);
 
-        /**
-         * Walks upward if possible
-         */
-        void walkUp();
+  /**
+  * Moves character deppending on key event
+  *
+  * @param event - keyboard event
+  */
+  void move(SDL_Event event);
 
-        /**
-         * Walks downward if possible
-         */
-        void walkDown();
+  /**
+  * Walks upward if possible
+  */
+  void walkUp();
 
-        /**
-         * Walks left if possible
-         */
-        void walkLeft();
+  /**
+  * Walks downward if possible
+  */
+  void walkDown();
 
-        /**
-         * Walks right if possible
-         */
-        void walkRight();
+  /**
+  * Walks left if possible
+  */
+  void walkLeft();
+
+  /**
+  * Walks right if possible
+  */
+  void walkRight();
 };

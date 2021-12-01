@@ -8,42 +8,42 @@
 using namespace std;
 
 class Bomb : public Texture{
-    private:
-        /** position: move to Texture class */
-        Coord position;
-        bool alive = true;
+private:
+  /** position: move to Texture class */
+  Coord position;
+  bool alive = true;
 
-    public:
-	    NLOHMANN_DEFINE_TYPE_INTRUSIVE(Bomb, position);
+public:
+  NLOHMANN_DEFINE_TYPE_INTRUSIVE(Bomb, position);
 
-        /**
-    	 * Create a bomb object with his target on the screen
-    	 *
-    	 * @param bomb_url - bomb sprite image url
-    	 * @param position - current bomb position
-    	 * @param width - sprite width
-    	 * @param height - sprite height
-    	 */
-        Bomb(string bomb_url, Coord position, int width, int height);
+  /**
+  * Create a bomb object with his target on the screen
+  *
+  * @param bomb_url - bomb sprite image url
+  * @param position - current bomb position
+  * @param width - sprite width
+  * @param height - sprite height
+  */
+  Bomb(string bomb_url, Coord position, int width, int height);
 
-        /**
-       * Get position
-       *
-       *@returns position
-       */
-        Coord getPosition();
+  /**
+  * Get position
+  *
+  *@returns position
+  */
+  Coord getPosition();
 
-        /**
-       * Gets alive situation
-       *
-       *@returns alive
-       */
+  /**
+  * Gets alive situation
+  *
+  *@returns alive
+  */
 
-        bool isAlive();
+  bool isAlive();
 
-        /**
-       * Sets bomb as destroyed
-       */
+  /**
+  * Sets bomb as destroyed
+  */
 
-        void setDestroyed();
+  void setDestroyed();
 };

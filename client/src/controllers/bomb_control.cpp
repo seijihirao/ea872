@@ -37,45 +37,45 @@ void explode(shared_ptr<Bomb> bomb, shared_ptr<Char> character, shared_ptr<Map> 
 
   bomb->setDestroyed();
 
-    if(character->getPosition().getX() == x || character->getPosition().getX() == x+1 || (character->getPosition().getX() == x+2  && map->checkComponent(x+1,y) != Wall)){
-      if(character->getPosition().getY() == y || character->getPosition().getY() == y+1 || (character->getPosition().getY() == y+2 && map->checkComponent(x,y+1) != Wall))
-        character->kill();
-    }
+  if(character->getPosition().getX() == x || character->getPosition().getX() == x+1 || (character->getPosition().getX() == x+2  && map->checkComponent(x+1,y) != Wall)){
+    if(character->getPosition().getY() == y || character->getPosition().getY() == y+1 || (character->getPosition().getY() == y+2 && map->checkComponent(x,y+1) != Wall))
+    character->kill();
+  }
 
-    if(x-2 >= 0 || x-1 >= 0){
-      if((character->getPosition().getX() == x-2 && map->checkComponent(x-1,y) != Wall)  || character->getPosition().getX() == x-1)
-        if(character->getPosition().getY() == y)
-          character->kill();
-    }
+  if(x-2 >= 0 || x-1 >= 0){
+    if((character->getPosition().getX() == x-2 && map->checkComponent(x-1,y) != Wall)  || character->getPosition().getX() == x-1)
+    if(character->getPosition().getY() == y)
+    character->kill();
+  }
 
-    if(y-2 >= 0 || y-1 >= 0){
-      if((character->getPosition().getY() == y-2 && map->checkComponent(x,y-1) != Wall)  || character->getPosition().getY() == y-1)
-        if(character->getPosition().getX() == x)
-          character->kill();
-    }
+  if(y-2 >= 0 || y-1 >= 0){
+    if((character->getPosition().getY() == y-2 && map->checkComponent(x,y-1) != Wall)  || character->getPosition().getY() == y-1)
+    if(character->getPosition().getX() == x)
+    character->kill();
+  }
 
   if(y+1 < map->getMaxY()){
     map->setAfterExplosion(x,y+1);
     if(y+2 < map->getMaxY() && map->checkComponent(x,y+1) != Wall)
-      map->setAfterExplosion(x,y+2);
+    map->setAfterExplosion(x,y+2);
   }
 
   if(y-1 > 0){
     map->setAfterExplosion(x,y-1);
     if(y-2 > 0 && map->checkComponent(x,y-1) != Wall)
-      map->setAfterExplosion(x,y-2);
+    map->setAfterExplosion(x,y-2);
   }
 
   if(x+1 < map->getMaxX()){
     map->setAfterExplosion(x+1,y);
     if(x+2 < map->getMaxX() && map->checkComponent(x+1,y) != Wall)
-      map->setAfterExplosion(x+2,y);
+    map->setAfterExplosion(x+2,y);
   }
 
   if(x-1 > 0){
     map->setAfterExplosion(x-1,y);
     if(x-2 > 0 && map->checkComponent(x-1,y) != Wall)
-      map->setAfterExplosion(x-2,y);
+    map->setAfterExplosion(x-2,y);
   }
 
   map->setAfterExplosion(x,y);

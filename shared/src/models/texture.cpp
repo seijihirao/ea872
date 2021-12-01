@@ -2,38 +2,38 @@
 
 using namespace std;
 
-Texture::Texture(string url, int width, int height) : 
-    url(url), 
-    width(width), 
-    height(height) {
-    this->target.w = width;
-    this->target.h = height;
+Texture::Texture(string url, int width, int height) :
+url(url),
+width(width),
+height(height) {
+  this->target.w = width;
+  this->target.h = height;
 }
 
 SDL_Rect* Texture::getTarget() {
-    return &target;
+  return &target;
 }
 
 void Texture::setTarget(SDL_Rect target) {
-    this->target = target;
+  this->target = target;
 }
 
 SDL_Texture* Texture::getTexture() {
-    return this->texture;
+  return this->texture;
 }
 
 void Texture::setTexture(SDL_Texture* texture) {
-    this->texture = texture;
+  this->texture = texture;
 }
 
 const char* Texture::getFile(){
-    return this->url.c_str();
+  return this->url.c_str();
 }
 
 int* Texture:: getWidth(){
-    return &this->width;
+  return &this->width;
 }
 
 int* Texture:: getHeight(){
-    return &this->width;
+  return &this->width;
 }

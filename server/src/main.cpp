@@ -15,8 +15,8 @@ int main() {
     vector<Char> characters = {};
 
     shared_ptr<Sync> sync (new Sync(map, characters));
-    
+
     syncData(sync);
-    
-    return 0; 
+
+    return 0;
 }

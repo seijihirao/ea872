@@ -10,33 +10,33 @@ using namespace std;
 using boost::asio::ip::udp;
 
 class Sync {
-    private:
-        /** Character pointer */
-        vector<Char> characters;
+private:
+  /** Character pointer */
+  vector<Char> characters;
 
-        /** Map pointer*/
-        const shared_ptr<Map> map;
+  /** Map pointer*/
+  const shared_ptr<Map> map;
 
-    public:
-        /**
-         * Creates a service to sync data with clients via UDP
-         *
-         * @param map - map in which character will walk
-         * @param character - character to move
-         */
-        Sync(shared_ptr<Map> map, vector<Char> characters);
+public:
+  /**
+  * Creates a service to sync data with clients via UDP
+  *
+  * @param map - map in which character will walk
+  * @param character - character to move
+  */
+  Sync(shared_ptr<Map> map, vector<Char> characters);
 
-        /**
-         * Synchronizes data with client
-         */
-        void sync();
+  /**
+  * Synchronizes data with client
+  */
+  void sync();
 
-        /**
-         * Creates new player
-         *
-         * @returns player number
-         */
-        int _createNewPlayer();
+  /**
+  * Creates new player
+  *
+  * @returns player number
+  */
+  int _createNewPlayer();
 
 };
 
